@@ -7,7 +7,14 @@ defmodule Prokeep.MessageQueue do
   require Logger
 
   def start_link(queue_name) do
-    GenServer.start_link(__MODULE__, queue_name, name: name_for(queue_name))
+    case :global.whereis_name({:message_queue, queue_name}) do
+      :undefined ->
+        {:ok, pid} = GenServer.start_link(__MODULE__, queue_name)
+        :global.register_name({:message_queue, queue_name}, pid)
+        {:ok, pid}
+      pid ->
+        {:ok, pid}
+    end
   end
 
   def name_for(queue_name) do
