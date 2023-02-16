@@ -7,10 +7,6 @@ config :prokeep, ProkeepWeb.Endpoint,
   secret_key_base: "PcZjqQ4XGWENeALuEfBmuqRt1zuPEutw/RCHJzUuIZG4aLfJvOyjzlP1G1M6VEE5",
   server: false
 
-# In test we don't send emails.
-config :prokeep, Prokeep.Mailer,
-  adapter: Swoosh.Adapters.Test
-
 # Print only warnings and errors during test
 config :logger, level: :info
 
